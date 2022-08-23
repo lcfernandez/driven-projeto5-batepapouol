@@ -1,0 +1,20 @@
+/* file structure:
+
+- selectors
+    - tags
+    - classes
+
+    - elements?
+    - behaviours?
+
+- rules */
+
+
+/* box-sizing best practices */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
