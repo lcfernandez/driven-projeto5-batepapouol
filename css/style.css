@@ -18,3 +18,80 @@ html {
 *, *:before, *:after {
     box-sizing: inherit;
 }
+
+button {
+    background-color: purple;
+    border: none;
+    height: 100%;
+    width: 61px;
+}
+
+footer {
+    align-items: center;
+    background-color: green;
+    display: flex;
+    bottom: 0;
+    height: 80px;
+    justify-content: space-between;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+header {
+    align-items: center;
+    background-color: red;
+    display: flex;
+    height: 80px;
+    left: 0;
+    justify-content: space-between;
+    padding: 0 22px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+li {
+    background-color: brown;
+    height: 40px;
+    margin: 2px 0;
+}
+
+main {
+    background-color: blue;
+    margin: 80px 0;
+    padding: 22px 0;
+}
+
+nav {
+    background-color: yellow;
+    height: 45px;
+    width: 45px;
+}
+
+textarea {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    overflow: auto;
+    resize: none;
+    width: calc(100% - 61px);
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.logo {
+    background-color: orange;
+    height: 53px;
+    width: 75px;
+}
+
+.private {
+    background-color: pink;
+}
+
+.room-log {
+    background-color: gray;
+}
