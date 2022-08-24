@@ -1,14 +1,15 @@
 /* file structure:
 
+- rules?
+
 - selectors
     - tags
     - classes
 
     - elements?
-    - behaviours?
+    - behaviours? */
 
-- rules */
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 /* box-sizing best practices */
 html {
@@ -17,6 +18,10 @@ html {
 
 *, *:before, *:after {
     box-sizing: inherit;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
 footer {
@@ -58,7 +63,6 @@ header {
 
 input {
     border: none;
-    font-family: 'Roboto', sans-serif;
     font-size: 18px;
     outline: none;
     padding: 0 17px;
@@ -89,7 +93,6 @@ ion-icon:before {
 li {
     align-items: center;
     display: flex;
-    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     height: 40px;
     margin-top: 4px;
@@ -127,5 +130,3 @@ nav {
 .status {
     background-color: #dcdcdc;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
