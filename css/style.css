@@ -19,10 +19,6 @@ html {
     box-sizing: inherit;
 }
 
-body {
-    background-color: #f3f3f3;
-}
-
 footer {
     align-items: center;
     background-color: #ffffff;
@@ -35,6 +31,14 @@ footer {
     position: fixed;
     width: 100%;
     z-index: 1;
+}
+
+b {
+    font-weight: 700;
+}
+
+em {
+    color: #aaaaaa;
 }
 
 header {
@@ -83,13 +87,17 @@ ion-icon:before {
 }
 
 li {
-    background-color: brown;
+    align-items: center;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
     height: 40px;
-    margin: 2px 0;
+    margin-top: 4px;
+    padding: 0 8px;
 }
 
 main {
-    background-color: blue;
+    background-color: #f3f3f3;
     margin: 80px 0;
     padding: 22px 0;
 }
@@ -108,12 +116,16 @@ nav {
     width: 61px;
 }
 
-.private {
-    background-color: pink;
+.message {
+    background-color: #ffffff;
 }
 
-.room-log {
-    background-color: gray;
+.private_message {
+    background-color: #ffdede;
+}
+
+.status {
+    background-color: #dcdcdc;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
