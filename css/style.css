@@ -19,16 +19,14 @@ html {
     box-sizing: inherit;
 }
 
-button {
-    background-color: purple;
-    border: none;
-    height: 100%;
-    width: 61px;
+body {
+    background-color: #f3f3f3;
 }
 
 footer {
     align-items: center;
-    background-color: green;
+    background-color: #ffffff;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     display: flex;
     bottom: 0;
     height: 80px;
@@ -52,6 +50,28 @@ header {
     top: 0;
     width: 100%;
     z-index: 1;
+}
+
+input {
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    outline: none;
+    padding: 0 17px;
+    width: calc(100% - 61px);
+
+    /* in case of using textarea instead */
+    /* box-shadow: none; */
+    /* line-height: 21px; */
+    /* overflow: auto; or none? */
+    /* resize: none; */
+    /* -moz-box-shadow: none;
+    -webkit-box-shadow: none; */
+}
+
+input::placeholder {
+    font-style: italic;
+    opacity: 1;
 }
 
 /* removes tooltips from icons */
@@ -79,15 +99,13 @@ nav {
     font-size: 45px;
 }
 
-textarea {
-    border: none;
-    box-shadow: none;
-    outline: none;
-    overflow: auto;
-    resize: none;
-    width: calc(100% - 61px);
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
+.button {
+    align-items: center;
+    display: flex;
+    font-size: 32px;
+    height: 100%;
+    justify-content: center;
+    width: 61px;
 }
 
 .private {
@@ -97,3 +115,5 @@ textarea {
 .room-log {
     background-color: gray;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
