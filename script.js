@@ -63,6 +63,7 @@ function processRespondeUpdate(response) {
                 }
             }
 
+            messagesList.lastElementChild.scrollIntoView();
             messages = update;
             return;
         }
