@@ -14,9 +14,13 @@ let messages;
 askUsername();
 
 function askUsername() {
-    const username = prompt("Qual é o seu lindo nome?");
+    const username = prompt("Qual é o seu nome?");
     object = {name: username};
 
+    validateUsername();
+}
+
+function validateUsername() {
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", object);
     promise.then(processResponseLogin);
     promise.catch(processErrorLogin);
@@ -27,12 +31,12 @@ function processResponseLogin() {
 
     setInterval(function () {
         axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
-        
     }, 5000);
 }
 
 function processErrorLogin() {
-    askUsername();
+    const username = prompt("Este nome já está em uso, digite outro nome:");
+    object = {name: username};
 }
 
 function enterChat() {
@@ -84,11 +88,38 @@ function processResponse(response) {
         if (type === "status") {
             messagesList.innerHTML += `<li class="${type}"><em>(${messages[i].time})</em> &nbsp<b>${messages[i].from}</b> &nbsp${messages[i].text}</li>`;
         } else {
-            messagesList.innerHTML += `<li class="${type}"><em>(${messages[i].time})</em> &nbsp<b>${messages[i].from}</b> ${type === "private_message" ? "&nbspreservadamente" : ""}&nbsppara&nbsp<b>${messages[i].to}</b>: ${messages[i].text}</li>`;
+            // if (type !== "private_message" || message[i].to === username) {
+                messagesList.innerHTML += `<li class="${type}"><em>(${messages[i].time})</em> &nbsp<b>${messages[i].from}</b> ${type === "private_message" ? "&nbspreservadamente" : ""}&nbsppara&nbsp<b>${messages[i].to}</b>: ${messages[i].text}</li>`;
+            // }
         }
     }
 
     setInterval(function () {
         updateChat();
     }, 3000);
+}
+
+let textMessage;
+
+function sendMessage() {
+    textMessage = document.querySelector("input").value;
+    
+    const objectMessage = {
+        from: object.name,
+        to: "Todos",
+        text: textMessage,
+        type: "message"
+    };
+
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
+    promise.then(processResponseMessage);
+    promise.catch(processErrorMessage);
+}
+
+function processResponseMessage() {
+    document.querySelector("input").value = "";
+}
+
+function processErrorMessage() {
+    window.location.reload();
 }
