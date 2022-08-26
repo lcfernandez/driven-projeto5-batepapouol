@@ -37,6 +37,8 @@ function processResponseLogin() {
 function processErrorLogin() {
     const username = prompt("Este nome já está em uso, digite outro nome:");
     object = {name: username};
+
+    validateUsername()
 }
 
 function enterChat() {
@@ -61,9 +63,11 @@ function processRespondeUpdate(response) {
                 type = newMessages[j].type;
         
                 if (type === "status") {
-                    messagesList.innerHTML += `<li class="${type}"><em>(${newMessages[j].time})</em> &nbsp<b>${newMessages[j].from}</b> &nbsp${newMessages[j].text}</li>`;
+                    messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${newMessages[j].text}</p></li>`;
                 } else {
-                    messagesList.innerHTML += `<li class="${type}"><em>(${newMessages[j].time})</em> &nbsp<b>${newMessages[j].from}</b> ${type === "private_message" ? "&nbspreservadamente" : ""}&nbsppara&nbsp<b>${newMessages[j].to}</b>: ${newMessages[j].text}</li>`;
+                    if (type !== "private_message" || newMessages[j].to === object.name) {
+                        messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${newMessages[j].to}</span>: ${newMessages[j].text}</p></li>`;
+                    }
                 }
             }
 
@@ -86,11 +90,11 @@ function processResponse(response) {
         type = messages[i].type;
 
         if (type === "status") {
-            messagesList.innerHTML += `<li class="${type}"><em>(${messages[i].time})</em> &nbsp<b>${messages[i].from}</b> &nbsp${messages[i].text}</li>`;
+            messagesList.innerHTML += `<li class="${type}"><p><span>(${messages[i].time})</span> <span>${messages[i].from}</span> ${messages[i].text}</p></li>`;
         } else {
-            // if (type !== "private_message" || message[i].to === username) {
-                messagesList.innerHTML += `<li class="${type}"><em>(${messages[i].time})</em> &nbsp<b>${messages[i].from}</b> ${type === "private_message" ? "&nbspreservadamente" : ""}&nbsppara&nbsp<b>${messages[i].to}</b>: ${messages[i].text}</li>`;
-            // }
+            if (type !== "private_message" || messages[i].to === object.name) {
+                messagesList.innerHTML += `<li class="${type}"><p><span>(${messages[i].time})</span> <span>${messages[i].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${messages[i].to}</span>: ${messages[i].text}</p></li>`;
+            }
         }
     }
 

@@ -38,14 +38,6 @@ footer {
     z-index: 1;
 }
 
-b {
-    font-weight: 700;
-}
-
-em {
-    color: #aaaaaa;
-}
-
 header {
     align-items: center;
     background-color: #ffffff;
@@ -98,9 +90,20 @@ li {
     align-items: center;
     display: flex;
     font-size: 14px;
+    line-height: 20px;
     min-height: 40px;
     margin-top: 4px;
-    padding: 0 8px;
+    padding: 13px 8px;
+}
+
+p span:nth-child(2), p span:nth-child(3) {
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+p span:nth-child(1) {
+    color: #aaaaaa;
+    word-wrap: break-word;
 }
 
 main {
