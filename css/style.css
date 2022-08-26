@@ -94,7 +94,7 @@ li {
     align-items: center;
     display: flex;
     font-size: 14px;
-    height: 40px;
+    min-height: 40px;
     margin-top: 4px;
     padding: 0 8px;
 }
