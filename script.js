@@ -7,123 +7,138 @@ functions
 calls? */
 
 
-const messagesList = document.querySelector("ul");
-let object;
-let messages;
+// const messagesList = document.querySelector("ul");
+// let object;
+// let messages;
 
-askUsername();
+// askUsername();
 
-function askUsername() {
-    const username = prompt("Qual é o seu nome?");
-    object = {name: username};
+// function askUsername() {
+//     const username = prompt("Qual é o seu nome?");
+//     object = {name: username};
 
-    validateUsername();
-}
+//     validateUsername();
+// }
 
-function validateUsername() {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", object);
-    promise.then(processResponseLogin);
-    promise.catch(processErrorLogin);
-}
+// function validateUsername() {
+//     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", object);
+//     promise.then(processResponseLogin);
+//     promise.catch(processErrorLogin);
+// }
 
-function processResponseLogin() {
-    enterChat();
+// function processResponseLogin() {
+//     enterChat();
 
-    setInterval(function () {
-        axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
-    }, 5000);
-}
+//     setInterval(function () {
+//         axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
+//     }, 5000);
+// }
 
-function processErrorLogin() {
-    const username = prompt("Este nome já está em uso, digite outro nome:");
-    object = {name: username};
+// function processErrorLogin() {
+//     const username = prompt("Este nome já está em uso, digite outro nome:");
+//     object = {name: username};
 
-    validateUsername()
-}
+//     validateUsername()
+// }
 
-function enterChat() {
-    const promiseChat = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-    promiseChat.then(processResponse);
-}
+// function enterChat() {
+//     const promiseChat = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+//     promiseChat.then(processResponse);
+// }
 
-function updateChat() {
-    const update = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-    update.then(processRespondeUpdate);
-}
+// function updateChat() {
+//     const update = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+//     update.then(processRespondeUpdate);
+// }
 
-function processRespondeUpdate(response) {
-    const update = response.data;
+// function processRespondeUpdate(response) {
+//     const update = response.data;
     
-    for (let i = 0; i < update.length; i++) {
-        if (compareObjects(messages[99],update[i])) {
-            const newMessages = update.slice(i + 1);
-            let type;
+//     for (let i = 0; i < update.length; i++) {
+//         if (compareObjects(messages[99],update[i])) {
+//             const newMessages = update.slice(i + 1);
+//             let type;
 
-            for (let j = 0; j < newMessages.length; j++) {
-                type = newMessages[j].type;
+//             for (let j = 0; j < newMessages.length; j++) {
+//                 type = newMessages[j].type;
         
-                if (type === "status") {
-                    messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${newMessages[j].text}</p></li>`;
-                } else {
-                    if (type !== "private_message" || newMessages[j].to === object.name) {
-                        messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${newMessages[j].to}</span>: ${newMessages[j].text}</p></li>`;
-                    }
-                }
-            }
+//                 if (type === "status") {
+//                     messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${newMessages[j].text}</p></li>`;
+//                 } else {
+//                     if (type !== "private_message" || newMessages[j].to === object.name) {
+//                         messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${newMessages[j].to}</span>: ${newMessages[j].text}</p></li>`;
+//                     }
+//                 }
+//             }
 
-            messagesList.lastElementChild.scrollIntoView();
-            messages = update;
-            return;
-        }
-    }
-}
+//             messagesList.lastElementChild.scrollIntoView();
+//             messages = update;
+//             return;
+//         }
+//     }
+// }
 
-function compareObjects(obj1, obj2) {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
-}
+// function compareObjects(obj1, obj2) {
+//     return JSON.stringify(obj1) === JSON.stringify(obj2);
+// }
 
-function processResponse(response) {
-    messages = response.data;
-    let type;
+// function processResponse(response) {
+//     messages = response.data;
+//     let type;
 
-	for (let i = 0; i < messages.length; i++) {
-        type = messages[i].type;
+// 	for (let i = 0; i < messages.length; i++) {
+//         type = messages[i].type;
 
-        if (type === "status") {
-            messagesList.innerHTML += `<li class="${type}"><p><span>(${messages[i].time})</span> <span>${messages[i].from}</span> ${messages[i].text}</p></li>`;
-        } else {
-            if (type !== "private_message" || messages[i].to === object.name) {
-                messagesList.innerHTML += `<li class="${type}"><p><span>(${messages[i].time})</span> <span>${messages[i].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${messages[i].to}</span>: ${messages[i].text}</p></li>`;
-            }
-        }
-    }
+//         if (type === "status") {
+//             messagesList.innerHTML += `<li class="${type}"><p><span>(${messages[i].time})</span> <span>${messages[i].from}</span> ${messages[i].text}</p></li>`;
+//         } else {
+//             if (type !== "private_message" || messages[i].to === object.name) {
+//                 messagesList.innerHTML += `<li class="${type}"><p><span>(${messages[i].time})</span> <span>${messages[i].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${messages[i].to}</span>: ${messages[i].text}</p></li>`;
+//             }
+//         }
+//     }
 
-    setInterval(function () {
-        updateChat();
-    }, 3000);
-}
+//     setInterval(function () {
+//         updateChat();
+//     }, 3000);
+// }
 
-let textMessage;
+// let textMessage;
 
-function sendMessage() {
-    textMessage = document.querySelector("input").value;
+// function sendMessage() {
+//     textMessage = document.querySelector("input").value;
     
-    const objectMessage = {
-        from: object.name,
-        to: "Todos",
-        text: textMessage,
-        type: "message"
-    };
+//     const objectMessage = {
+//         from: object.name,
+//         to: "Todos",
+//         text: textMessage,
+//         type: "message"
+//     };
 
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
-    promise.then(processResponseMessage);
-    promise.catch(processErrorMessage);
+//     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
+//     promise.then(processResponseMessage);
+//     promise.catch(processErrorMessage);
+// }
+
+// function processResponseMessage() {
+//     document.querySelector("input").value = "";
+// }
+
+// function processErrorMessage() {
+//     window.location.reload();
+// }
+
+const menuScreen = document.querySelector(".menu-screen");
+
+function closeMenu() {
+    menuScreen.classList.add("hidden");
 }
 
-function processResponseMessage() {
-    document.querySelector("input").value = "";
+function openMenu() {
+    menuScreen.classList.remove("hidden");
 }
 
-function processErrorMessage() {
-    window.location.reload();
+function select(option) {
+    option.parentNode.querySelector("ion-icon:nth-child(2):not(.hidden)").classList.add("hidden");
+    option.querySelector("ion-icon:nth-child(2)").classList.remove("hidden");;
 }

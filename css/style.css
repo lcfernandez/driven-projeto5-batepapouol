@@ -11,14 +11,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
-/* box-sizing best practices */
-html {
-    box-sizing: border-box;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
+/* tags */
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -51,6 +44,15 @@ header {
     top: 0;
     width: 100%;
     z-index: 1;
+}
+
+/* box-sizing best practices */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 input {
@@ -86,7 +88,13 @@ ion-icon:before {
     width: 100%;
 }
 
-li {
+main {
+    background-color: #f3f3f3;
+    margin: 80px 0;
+    padding: 22px 0;
+}
+
+main li {
     align-items: center;
     display: flex;
     font-size: 14px;
@@ -96,9 +104,9 @@ li {
     padding: 13px 8px;
 }
 
-p span:nth-child(2), p span:nth-child(3) {
-    font-weight: 700;
-    word-wrap: break-word;
+nav {
+    color: #000000;
+    font-size: 45px;
 }
 
 p span:nth-child(1) {
@@ -106,16 +114,12 @@ p span:nth-child(1) {
     word-wrap: break-word;
 }
 
-main {
-    background-color: #f3f3f3;
-    margin: 80px 0;
-    padding: 22px 0;
+p span:nth-child(2), p span:nth-child(3) {
+    font-weight: 700;
+    word-wrap: break-word;
 }
 
-nav {
-    color: #000000;
-    font-size: 45px;
-}
+/* classes */
 
 .button {
     align-items: center;
@@ -126,8 +130,70 @@ nav {
     width: 61px;
 }
 
+.container {
+    display: flex;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.hidden {
+    display: none;
+}
+
+.menu {
+    background-color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    height: inherit;
+    line-height: 19px;
+    width: 70%;
+}
+
+.menu div {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 66px;
+    padding: 0 43px;
+    text-align: center;
+}
+
+.menu ion-icon:nth-child(1) {
+    font-size: 25px;
+    padding: 0 7px;
+}
+
+.menu ion-icon:nth-child(2) {
+    color: #28BB25;
+    font-size: 15px;
+    padding: 0 17px;
+}
+
+.menu li {
+    display: flex;
+    font-weight: 400;
+    justify-content: space-between;
+    padding: 6px 10px;
+}
+
+.menu span {
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+}
+
 .message {
     background-color: #ffffff;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: inherit;
+    width: 30%;
 }
 
 .private_message {

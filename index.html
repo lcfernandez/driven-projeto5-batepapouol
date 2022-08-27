@@ -13,12 +13,40 @@
         <link rel="shortcut icon" type="image/png" href="favicon.png" />
 	</head>
 	<body>
+		<div class="menu-screen hidden">
+			<div class="container">
+				<div class="overlay" onclick="closeMenu()">
+				</div>
+				<!-- overlay -->
+
+				<div class="menu">
+					<div>Escolha um contato para enviar mensagem:</div>
+
+					<ul>
+						<li onclick="select(this)"><span><ion-icon name="people"></ion-icon> Todos</span> <ion-icon name="checkmark-sharp"></ion-icon></li>
+						<li onclick="select(this)"><span><ion-icon name="person-circle"></ion-icon> João</span> <ion-icon name="checkmark-sharp" class="hidden"></ion-icon></li>
+						<li onclick="select(this)"><span><ion-icon name="person-circle"></ion-icon> Maria</span> <ion-icon name="checkmark-sharp" class="hidden"></ion-icon></li>
+					</ul>
+
+					<div>Escolha a visibilidade:</div>
+					
+					<ul>
+						<li onclick="select(this)"><span><ion-icon name="lock-open"></ion-icon> Público</span> <ion-icon name="checkmark-sharp"></ion-icon></li>
+						<li onclick="select(this)"><span><ion-icon name="lock-closed"></ion-icon> Reservadamente</span> <ion-icon name="checkmark-sharp" class="hidden"></ion-icon></li>
+					</ul>
+				</div>
+				<!-- menu -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- menu-screen -->
+
 		<header>
 			<div class="logo">
 				<img src="./images/logo-1.png" title="O Chat online mais famoso do Brasil | Bate Papo UOL" />
 			</div>
 			<nav>
-				<ion-icon name="people"></ion-icon>
+				<ion-icon name="people" onclick="openMenu()"></ion-icon>
 			</nav>
 		</header>
 
