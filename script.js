@@ -148,12 +148,32 @@ const listParticipants = document.querySelector(".participants");
 
 function processResponseParticipants(response) {
     const participants = response.data;
-    listParticipants.innerHTML = '<li onclick="select(this)"><span><ion-icon name="people"></ion-icon> Todos</span> <ion-icon name="checkmark-sharp hidden"></ion-icon></li>'
+    listParticipants.innerHTML =
+        `<li data-identifier="participant" onclick="select(this)">
+            <span>
+                <ion-icon name="people"></ion-icon>
+                
+                <span class="name">Todos</span>
+            </span>
+            
+            <ion-icon name="checkmark-sharp" ${lastSelectedName === "Todos" ? "" : 'class="hidden"'}></ion-icon>
+        </li>`
 
     for (let i = 0; i < participants.length; i++) {
-        listParticipants.innerHTML += `<li onclick="select(this)"><span><ion-icon name="person-circle"></ion-icon> ${participants[i].name}</span> <ion-icon name="checkmark-sharp" class="hidden"></ion-icon></li>`
+        listParticipants.innerHTML +=
+            `<li data-identifier="participant" onclick="select(this)">
+                <span>
+                    <ion-icon name="person-circle"></ion-icon>
+                    
+                    <span class="name">${participants[i].name}</span>
+                </span>
+                
+                <ion-icon name="checkmark-sharp" ${lastSelectedName === participants[i].name ? "" : 'class="hidden"'}></ion-icon>
+            </li>`
     }
 }
+
+let lastSelectedName = "Todos";
 
 function select(option) {
     const selected = option.parentNode.querySelector("ion-icon:nth-child(2):not(.hidden)");
@@ -163,5 +183,5 @@ function select(option) {
     }
 
     option.querySelector("ion-icon:nth-child(2)").classList.remove("hidden");
-    // guardar ultimo selecionado, melhorar classificação de div, ul, span, etc, no html
+    lastSelectedName = option.querySelector(".name").innerHTML;
 }

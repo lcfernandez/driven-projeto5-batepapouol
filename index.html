@@ -27,8 +27,21 @@
 					<div>Escolha a visibilidade:</div>
 					
 					<ul>
-						<li onclick="select(this)"><span><ion-icon name="lock-open"></ion-icon> Público</span> <ion-icon name="checkmark-sharp"></ion-icon></li>
-						<li onclick="select(this)"><span><ion-icon name="lock-closed"></ion-icon> Reservadamente</span> <ion-icon name="checkmark-sharp" class="hidden"></ion-icon></li>
+						<li data-identifier="visibility" onclick="select(this)">
+							<span>
+								<ion-icon name="lock-open"></ion-icon> Público
+							</span>
+
+							<ion-icon name="checkmark-sharp"></ion-icon>
+						</li>
+						
+						<li data-identifier="visibility" onclick="select(this)">
+							<span>
+								<ion-icon name="lock-closed"></ion-icon> Reservadamente
+							</span>
+							
+							<ion-icon name="checkmark-sharp" class="hidden"></ion-icon>
+						</li>
 					</ul>
 				</div>
 				<!-- menu -->
