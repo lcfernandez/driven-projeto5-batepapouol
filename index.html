@@ -13,6 +13,20 @@
         <link rel="shortcut icon" type="image/png" href="favicon.png" />
 	</head>
 	<body>
+		<div class="login-screen">
+			<img src="./images/logo-1.png" />
+
+			<input class="username" placeholder="Digite seu nome"></input>
+
+			<button onclick="validateUsername()">Entrar</button>
+
+			<div class="loading hidden">
+				<div class="spinner"></div>
+				Entrando...
+			</div>
+		</div>
+		<!-- login-screen -->
+
 		<div class="menu-screen hidden">
 			<div class="container">
 				<div class="overlay" onclick="closeMenu()">
@@ -50,22 +64,22 @@
 		</div>
 		<!-- menu-screen -->
 
-		<header>
+		<header class="hidden">
 			<div class="logo">
-				<img src="./images/logo-1.png" title="O Chat online mais famoso do Brasil | Bate Papo UOL" />
+				<img src="./images/logo-2.png" title="O Chat online mais famoso do Brasil | Bate Papo UOL" />
 			</div>
 			<nav>
 				<ion-icon name="people" onclick="openMenu()"></ion-icon>
 			</nav>
 		</header>
 
-		<main>
+		<main class="hidden">
 			<ul class="messages"></ul>
 		</main>
 
-		<footer>
+		<footer class="hidden">
 			<div class="input-box">
-				<input placeholder="Escreva aqui..."></input>
+				<input class="input-message" placeholder="Escreva aqui..."></input>
 				<div class="label">Enviando para <span class="last-selected-participant"></span> (<span class="last-selected-visibility"></span>)</div>
 			</div>
 

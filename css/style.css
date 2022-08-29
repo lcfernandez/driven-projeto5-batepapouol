@@ -17,6 +17,17 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+button {
+    border: none;
+    border-radius: 10px;
+    color: #505050;
+    font-family: inherit;
+    font-size: 18px;
+    height: 45px;
+    margin: 15px 0;
+    width: 110px;
+}
+
 footer {
     align-items: center;
     background-color: #ffffff;
@@ -53,28 +64,6 @@ html {
 
 *, *:before, *:after {
     box-sizing: inherit;
-}
-
-input {
-    border: none;
-    font-family: inherit;
-    font-size: 18px;
-    outline: none;
-    padding: 0 17px;
-
-    /* in case of using textarea instead */
-    /* box-shadow: none; */
-    /* line-height: 21px; */
-    /* overflow: auto; or none? */
-    /* resize: none; */
-    /* -moz-box-shadow: none;
-    -webkit-box-shadow: none; */
-}
-
-input::placeholder {
-    color: #000000;
-    font-style: italic;
-    opacity: 1;
 }
 
 ion-icon {
@@ -160,6 +149,28 @@ p span:nth-child(2), p span:nth-child(3) {
     width: calc(100% - 61px);
 }
 
+.input-message {
+    border: none;
+    font-family: inherit;
+    font-size: 18px;
+    outline: none;
+    padding: 0 17px;
+
+    /* in case of using textarea instead */
+    /* box-shadow: none; */
+    /* line-height: 21px; */
+    /* overflow: auto; or none? */
+    /* resize: none; */
+    /* -moz-box-shadow: none;
+    -webkit-box-shadow: none; */
+}
+
+.input-message::placeholder {
+    color: #000000;
+    font-style: italic;
+    opacity: 1;
+}
+
 .label {
     color: #505050;
     font-size: 14px;
@@ -167,6 +178,35 @@ p span:nth-child(2), p span:nth-child(3) {
     line-height: 25px;
     margin: 5px 0;
     padding: 0 17px;
+}
+
+.loading {
+    font-size: 20px;
+}
+
+.login-screen {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-screen img {
+    margin: 75px 0;
+}
+
+.login-screen input {
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 18px;
+    height: 50px;
+    outline: none;
+    text-align: center;
+    width: 275px;
+}
+
+.login-screen input::placeholder {
+    opacity: 0.5;
 }
 
 .menu {
@@ -206,7 +246,7 @@ p span:nth-child(2), p span:nth-child(3) {
     font-weight: 400;
     justify-content: space-between;
     padding: 6px 10px;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .menu span {
@@ -227,6 +267,78 @@ p span:nth-child(2), p span:nth-child(3) {
 
 .private_message {
     background-color: #ffdede;
+}
+
+.spinner {
+    color: #000000;
+    font-size: 20px;
+    margin: 100px auto;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-animation: load4 1.3s infinite linear;
+    animation: load4 1.3s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+@-webkit-keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+    }
+    12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
+}
+
+@keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+    }
+    12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
 }
 
 .status {

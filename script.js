@@ -2,43 +2,36 @@
 
 global variables
 
+settings and calls?
+
 functions
 
-calls? */
+eventos? */
 
 
+const button = document.querySelector("button");
+const textMessage = document.querySelector(".input-message");
+const lastSelectedParticipant = document.querySelector(".last-selected-participant");
+const lastSelectedVisibility = document.querySelector(".last-selected-visibility");
+const listParticipants = document.querySelector(".participants");
+const loading = document.querySelector(".loading");
+const menuScreen = document.querySelector(".menu-screen");
 const messagesList = document.querySelector(".messages");
-let object;
+const username = document.querySelector(".username");
+let lastSelectedParticipantName = "Todos";
+let lastSelectedVisibilityName = "message";
 let messages;
+let object;
 
-askUsername();
+lastSelectedParticipant.innerHTML = lastSelectedParticipantName;
+lastSelectedVisibility.innerHTML = "público";
 
-function askUsername() {
-    const username = prompt("Qual é o seu nome?");
-    object = {name: username};
-
-    validateUsername();
+function closeMenu() {
+    menuScreen.classList.add("hidden");
 }
 
-function validateUsername() {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", object);
-    promise.then(processResponseLogin);
-    promise.catch(processErrorLogin);
-}
-
-function processResponseLogin() {
-    enterChat();
-
-    setInterval(function () {
-        axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
-    }, 5000);
-}
-
-function processErrorLogin() {
-    const username = prompt("Este nome já está em uso, digite outro nome:");
-    object = {name: username};
-
-    validateUsername()
+function compareObjects(obj1, obj2) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
 function enterChat() {
@@ -49,43 +42,22 @@ function enterChat() {
         const promiseParticipants = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
         promiseParticipants.then(processResponseParticipants);
     }, 10000);
-    
 }
 
-function updateChat() {
-    const update = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-    update.then(processRespondeUpdate);
+function openMenu() {
+    menuScreen.classList.remove("hidden");
+} 
+
+function processErrorLogin() {
+    username.classList.remove("hidden");
+    button.classList.remove("hidden");
+    loading.classList.add("hidden");
+
+    alert("Este nome já está em uso, tente outro nome.");
 }
 
-function processRespondeUpdate(response) {
-    const update = response.data;
-    
-    for (let i = 0; i < update.length; i++) {
-        if (compareObjects(messages[99],update[i])) {
-            const newMessages = update.slice(i + 1);
-            let type;
-
-            for (let j = 0; j < newMessages.length; j++) {
-                type = newMessages[j].type;
-        
-                if (type === "status") {
-                    messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${newMessages[j].text}</p></li>`;
-                } else {
-                    if (type !== "private_message" || newMessages[j].to === object.name) {
-                        messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${newMessages[j].to}</span>: ${newMessages[j].text}</p></li>`;
-                    }
-                }
-            }
-
-            messagesList.lastElementChild.scrollIntoView();
-            messages = update;
-            return;
-        }
-    }
-}
-
-function compareObjects(obj1, obj2) {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
+function processErrorMessage() {
+    window.location.reload();
 }
 
 function processResponse(response) {
@@ -109,42 +81,22 @@ function processResponse(response) {
     }, 3000);
 }
 
-let textMessage;
+function processResponseLogin() {
+    document.querySelector(".login-screen").remove();
+    document.querySelector("header").classList.remove("hidden");
+    document.querySelector("main").classList.remove("hidden");
+    document.querySelector("footer").classList.remove("hidden");
 
-function sendMessage() {
-    textMessage = document.querySelector("input").value;
-    
-    const objectMessage = {
-        from: object.name,
-        to: lastSelectedParticipantName,
-        text: textMessage,
-        type: lastSelectedVisibilityName
-    };
+    enterChat();
 
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
-    promise.then(processResponseMessage);
-    promise.catch(processErrorMessage);
+    setInterval(function () {
+        axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
+    }, 5000);
 }
 
 function processResponseMessage() {
-    document.querySelector("input").value = "";
+    textMessage.value = "";
 }
-
-function processErrorMessage() {
-    window.location.reload();
-}
-
-const menuScreen = document.querySelector(".menu-screen");
-
-function closeMenu() {
-    menuScreen.classList.add("hidden");
-}
-
-function openMenu() {
-    menuScreen.classList.remove("hidden");
-}
-
-const listParticipants = document.querySelector(".participants");
 
 function processResponseParticipants(response) {
     const participants = response.data;
@@ -173,10 +125,32 @@ function processResponseParticipants(response) {
     }
 }
 
-const lastSelectedParticipant = document.querySelector(".last-selected-participant");
-const lastSelectedVisibility = document.querySelector(".last-selected-visibility");
-let lastSelectedParticipantName = "Todos";
-let lastSelectedVisibilityName = "message";
+function processResponseUpdate(response) {
+    const update = response.data;
+    
+    for (let i = 0; i < update.length; i++) {
+        if (compareObjects(messages[99],update[i])) {
+            const newMessages = update.slice(i + 1);
+            let type;
+
+            for (let j = 0; j < newMessages.length; j++) {
+                type = newMessages[j].type;
+        
+                if (type === "status") {
+                    messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${newMessages[j].text}</p></li>`;
+                } else {
+                    if (type !== "private_message" || newMessages[j].to === object.name) {
+                        messagesList.innerHTML += `<li class="${type}"><p><span>(${newMessages[j].time})</span> <span>${newMessages[j].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${newMessages[j].to}</span>: ${newMessages[j].text}</p></li>`;
+                    }
+                }
+            }
+
+            messagesList.lastElementChild.scrollIntoView();
+            messages = update;
+            return;
+        }
+    }
+}
 
 function select(option) {
     const optionType = option.parentNode;
@@ -199,11 +173,44 @@ function select(option) {
     }
 }
 
-lastSelectedParticipant.innerHTML = lastSelectedParticipantName;
-lastSelectedVisibility.innerHTML = "público";
+function sendMessage() {
+    const objectMessage = {
+        from: object.name,
+        to: lastSelectedParticipantName,
+        text: textMessage.value,
+        type: lastSelectedVisibilityName
+    };
 
-document.addEventListener("keypress", function(event) {
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
+    promise.then(processResponseMessage);
+    promise.catch(processErrorMessage);
+}
+
+function updateChat() {
+    const update = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
+    update.then(processResponseUpdate);
+}
+
+function validateUsername() {
+    username.classList.add("hidden");
+    button.classList.add("hidden");
+    loading.classList.remove("hidden");
+
+    object = {name: username.value};
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", object);
+
+    promise.then(processResponseLogin);
+    promise.catch(processErrorLogin);
+}
+
+document.querySelector(".input-message").addEventListener("keypress", function(event) {
     if(event.key === 'Enter') {
         document.querySelector(".button > ion-icon").click();
+    }
+});
+
+document.querySelector(".username").addEventListener("keypress", function(event) {
+    if(event.key === 'Enter') {
+        document.querySelector(".login-screen > button").click();
     }
 });
