@@ -36,7 +36,8 @@ function compareObjects(obj1, obj2) {
 
 function enterChat() {
     const promiseChat = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-    promiseChat.then(processResponse);
+    promiseChat.then(processResponseEnterChat);
+    promiseChat.catch(processErrorDefault);
 }
 
 function feedChat(array) {
@@ -62,21 +63,30 @@ function formatTime(time) {
 
 function openMenu() {
     menuScreen.classList.remove("hidden");
-} 
-
-function processErrorLogin() {
-    username.classList.remove("hidden");
-    button.classList.remove("hidden");
-    loading.classList.add("hidden");
-
-    alert("Este nome já está em uso, tente outro nome.");
 }
 
-function processErrorMessage() {
+function processErrorDefault() {
+    alert("Algum problema ocorreu! Tente novamente.");
     window.location.reload();
 }
 
-function processResponse(response) {
+function processErrorLogin(error) {
+    const statusCode = error.response.status;
+
+    if (statusCode === 504) {
+        alert("Houve algum problema na comunicação com o servidor! Aguarde um momento e tente novamente.");
+    } else if (statusCode === 400) {
+        alert("Este nome já está em uso, tente outro nome.");
+    } else {
+        alert("Algum problema ocorreu! Tente novamente.");
+    }
+
+    username.classList.remove("hidden");
+    button.classList.remove("hidden");
+    loading.classList.add("hidden");
+}
+
+function processResponseEnterChat(response) {
     messages = response.data;
     feedChat(messages);
 
@@ -91,8 +101,6 @@ function processResponseLogin() {
     document.querySelector("main").classList.remove("hidden");
     document.querySelector("footer").classList.remove("hidden");
 
-    enterChat();
-
     setInterval(function () {
         axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
     }, 5000);
@@ -100,10 +108,13 @@ function processResponseLogin() {
     setInterval(function () {
         const promiseParticipants = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
         promiseParticipants.then(processResponseParticipants);
+        promiseParticipants.catch(processErrorDefault);
     }, 10000);
+
+    enterChat();
 }
 
-function processResponseMessage() {
+function processResponseSendMessage() {
     textMessage.value = "";
 }
 
@@ -134,7 +145,7 @@ function processResponseParticipants(response) {
     }
 }
 
-function processResponseUpdate(response) {
+function processResponseUpdateChat(response) {
     const update = response.data;
     
     for (let i = 0; i < update.length; i++) {
@@ -178,13 +189,14 @@ function sendMessage() {
     };
 
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
-    promise.then(processResponseMessage);
-    promise.catch(processErrorMessage);
+    promise.then(processResponseSendMessage);
+    promise.catch(processErrorDefault);
 }
 
 function updateChat() {
     const update = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-    update.then(processResponseUpdate);
+    update.then(processResponseUpdateChat);
+    update.then(processErrorDefault);
 }
 
 function validateUsername() {
