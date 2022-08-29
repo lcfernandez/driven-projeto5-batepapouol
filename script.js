@@ -2,12 +2,14 @@
 
 global variables
 
-settings and calls?
+assignments and calls
 
 functions
 
-eventos? */
+events */
 
+
+/* global variables */
 
 const button = document.querySelector("button");
 const textMessage = document.querySelector(".input-message");
@@ -23,8 +25,14 @@ let lastSelectedVisibilityName = "message";
 let messages;
 let object;
 
+
+/* assignments */
+
 lastSelectedParticipant.innerHTML = lastSelectedParticipantName;
 lastSelectedVisibility.innerHTML = "público";
+
+
+/* functions */
 
 function closeMenu() {
     menuScreen.classList.add("hidden");
@@ -37,7 +45,6 @@ function compareObjects(obj1, obj2) {
 function enterChat() {
     const promiseChat = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     promiseChat.then(processResponseEnterChat);
-    promiseChat.catch(processErrorDefault);
 }
 
 function feedChat(array) {
@@ -65,7 +72,7 @@ function openMenu() {
     menuScreen.classList.remove("hidden");
 }
 
-function processErrorDefault() {
+function processErrorSendMessage() {
     alert("Algum problema ocorreu! Tente novamente.");
     window.location.reload();
 }
@@ -102,13 +109,12 @@ function processResponseLogin() {
     document.querySelector("footer").classList.remove("hidden");
 
     setInterval(function () {
-        axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
+        const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
     }, 5000);
 
     setInterval(function () {
         const promiseParticipants = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
         promiseParticipants.then(processResponseParticipants);
-        promiseParticipants.catch(processErrorDefault);
     }, 10000);
 
     enterChat();
@@ -190,13 +196,12 @@ function sendMessage() {
 
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
     promise.then(processResponseSendMessage);
-    promise.catch(processErrorDefault);
+    promise.then(processErrorSendMessage);
 }
 
 function updateChat() {
     const update = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     update.then(processResponseUpdateChat);
-    update.then(processErrorDefault);
 }
 
 function validateUsername() {
@@ -210,6 +215,9 @@ function validateUsername() {
     promise.then(processResponseLogin);
     promise.catch(processErrorLogin);
 }
+
+
+/* events */
 
 document.querySelector(".input-message").addEventListener("keypress", function(event) {
     if(event.key === 'Enter') {

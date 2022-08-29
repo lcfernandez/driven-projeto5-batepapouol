@@ -12,6 +12,7 @@
 
         <link rel="shortcut icon" type="image/png" href="favicon.png" />
 	</head>
+	
 	<body>
 		<div class="login-screen">
 			<img src="./images/logo-1.png" />
@@ -22,16 +23,16 @@
 
 			<div class="loading hidden">
 				<div class="spinner"></div>
+
 				Entrando...
 			</div>
+			<!-- loading -->
 		</div>
 		<!-- login-screen -->
 
 		<div class="menu-screen hidden">
 			<div class="container">
-				<div class="overlay" onclick="closeMenu()">
-				</div>
-				<!-- overlay -->
+				<div class="overlay" onclick="closeMenu()"></div>
 
 				<div class="menu">
 					<div>Escolha um contato para enviar mensagem:</div>
@@ -68,6 +69,7 @@
 			<div class="logo">
 				<img src="./images/logo-2.png" title="O Chat online mais famoso do Brasil | Bate Papo UOL" />
 			</div>
+
 			<nav>
 				<ion-icon name="people" onclick="openMenu()"></ion-icon>
 			</nav>
@@ -96,6 +98,5 @@
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 		<script src="./script.js"></script>
-	</body>
 	</body>
 </html>

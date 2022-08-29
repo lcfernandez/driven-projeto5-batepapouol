@@ -1,15 +1,18 @@
 /* file structure:
 
-- rules?
+- rules
 
 - selectors
     - tags
-    - classes
+    - classes */
 
-    - elements?
-    - behaviours? */
+
+/* rules */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+
+/* selectors */
 
 /* tags */
 
@@ -65,18 +68,20 @@ html {
 *, *:before, *:after {
     box-sizing: inherit;
 }
+/* end of box-sizing best practices */
 
 ion-icon {
     cursor: pointer;
 }
 
-/* removes tooltips from icons */
+/* removing tooltips from icons */
 ion-icon:before {
     content: "";
     height: 100%;
     position: absolute;
     width: 100%;
 }
+/* end of removing tooltips from icons */
 
 main {
     background-color: #f3f3f3;
@@ -115,6 +120,7 @@ p span:nth-child(2), p span:nth-child(3) {
     font-weight: 700;
     word-wrap: break-word;
 }
+
 
 /* classes */
 
@@ -155,14 +161,6 @@ p span:nth-child(2), p span:nth-child(3) {
     font-size: 18px;
     outline: none;
     padding: 0 17px;
-
-    /* in case of using textarea instead */
-    /* box-shadow: none; */
-    /* line-height: 21px; */
-    /* overflow: auto; or none? */
-    /* resize: none; */
-    /* -moz-box-shadow: none;
-    -webkit-box-shadow: none; */
 }
 
 .input-message::placeholder {
@@ -269,6 +267,7 @@ p span:nth-child(2), p span:nth-child(3) {
     background-color: #ffdede;
 }
 
+/* implementing loading animation */
 .spinner {
     color: #000000;
     font-size: 20px;
@@ -340,6 +339,7 @@ p span:nth-child(2), p span:nth-child(3) {
         box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
     }
 }
+/* end of implementing loading animation */
 
 .status {
     background-color: #dcdcdc;
