@@ -201,3 +201,9 @@ function select(option) {
 
 lastSelectedParticipant.innerHTML = lastSelectedParticipantName;
 lastSelectedVisibility.innerHTML = "público";
+
+document.addEventListener("keypress", function(event) {
+    if(event.key === 'Enter') {
+        document.querySelector(".button > ion-icon").click();
+    }
+});
