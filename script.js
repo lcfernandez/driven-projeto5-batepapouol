@@ -52,10 +52,24 @@ function feedChat(array) {
         const type = array[i].type;
 
         if (type === "status") {
-            messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(array[i].time)})</span> <span>${array[i].from}</span> ${array[i].text}</p></li>`;
+            messagesList.innerHTML +=
+                `<li class="${type}">
+                    <p>
+                        <span>(${formatTime(array[i].time)})</span>
+                        <span>${array[i].from}</span>
+                        ${array[i].text}
+                    </p>
+                </li>`;
         } else {
             if (type !== "private_message" || array[i].to === object.name) {
-                messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(array[i].time)})</span> <span>${array[i].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${array[i].to}</span>: ${array[i].text}</p></li>`;
+                messagesList.innerHTML +=
+                    `<li class="${type}">
+                        <p>
+                            <span>(${formatTime(array[i].time)})</span>
+                            <span>${array[i].from}</span>
+                            ${type === "private_message" ? "reservadamente " : ""}para <span>${array[i].to}</span>: ${array[i].text}
+                        </p>
+                    </li>`;
             }
         }
     }
@@ -109,7 +123,7 @@ function processResponseLogin() {
     document.querySelector("footer").classList.remove("hidden");
 
     setInterval(function () {
-        const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
+        axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
     }, 5000);
 
     setInterval(function () {
@@ -196,7 +210,7 @@ function sendMessage() {
 
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
     promise.then(processResponseSendMessage);
-    promise.then(processErrorSendMessage);
+    promise.catch(processErrorSendMessage);
 }
 
 function updateChat() {
@@ -211,7 +225,6 @@ function validateUsername() {
 
     object = {name: username.value};
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", object);
-
     promise.then(processResponseLogin);
     promise.catch(processErrorLogin);
 }
