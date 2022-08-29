@@ -26,18 +26,18 @@
 
 					<div>Escolha a visibilidade:</div>
 					
-					<ul>
+					<ul class="visibilities">
 						<li data-identifier="visibility" onclick="select(this)">
 							<span>
-								<ion-icon name="lock-open"></ion-icon> Público
+								<ion-icon name="lock-open"></ion-icon> <span class="name">Público</span>
 							</span>
 
 							<ion-icon name="checkmark-sharp"></ion-icon>
 						</li>
-						
+
 						<li data-identifier="visibility" onclick="select(this)">
 							<span>
-								<ion-icon name="lock-closed"></ion-icon> Reservadamente
+								<ion-icon name="lock-closed"></ion-icon> <span class="name">Reservadamente</span>
 							</span>
 							
 							<ion-icon name="checkmark-sharp" class="hidden"></ion-icon>
@@ -64,7 +64,11 @@
 		</main>
 
 		<footer>
-			<input placeholder="Escreva aqui..."></input>
+			<div class="input-box">
+				<input placeholder="Escreva aqui..."></input>
+				<div class="label">Enviando para <span class="last-selected-participant"></span> (<span class="last-selected-visibility"></span>)</div>
+			</div>
+
 			<div class="button">
 				<ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
 			</div>

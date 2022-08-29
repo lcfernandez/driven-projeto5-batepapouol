@@ -77,7 +77,7 @@ function processRespondeUpdate(response) {
                 }
             }
 
-            // messagesList.lastElementChild.scrollIntoView();
+            messagesList.lastElementChild.scrollIntoView();
             messages = update;
             return;
         }
@@ -116,9 +116,9 @@ function sendMessage() {
     
     const objectMessage = {
         from: object.name,
-        to: "Todos",
+        to: lastSelectedParticipantName,
         text: textMessage,
-        type: "message"
+        type: lastSelectedVisibilityName
     };
 
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", objectMessage);
@@ -156,7 +156,7 @@ function processResponseParticipants(response) {
                 <span class="name">Todos</span>
             </span>
             
-            <ion-icon name="checkmark-sharp" ${lastSelectedName === "Todos" ? "" : 'class="hidden"'}></ion-icon>
+            <ion-icon name="checkmark-sharp" ${lastSelectedParticipantName === "Todos" ? "" : 'class="hidden"'}></ion-icon>
         </li>`
 
     for (let i = 0; i < participants.length; i++) {
@@ -168,20 +168,36 @@ function processResponseParticipants(response) {
                     <span class="name">${participants[i].name}</span>
                 </span>
                 
-                <ion-icon name="checkmark-sharp" ${lastSelectedName === participants[i].name ? "" : 'class="hidden"'}></ion-icon>
+                <ion-icon name="checkmark-sharp" ${lastSelectedParticipantName === participants[i].name ? "" : 'class="hidden"'}></ion-icon>
             </li>`
     }
 }
 
-let lastSelectedName = "Todos";
+const lastSelectedParticipant = document.querySelector(".last-selected-participant");
+const lastSelectedVisibility = document.querySelector(".last-selected-visibility");
+let lastSelectedParticipantName = "Todos";
+let lastSelectedVisibilityName = "message";
 
 function select(option) {
-    const selected = option.parentNode.querySelector("ion-icon:nth-child(2):not(.hidden)");
+    const optionType = option.parentNode;
+    const selected = optionType.querySelector("ion-icon:nth-child(2):not(.hidden)");
 
     if (selected) {
         selected.classList.add("hidden");
     }
 
     option.querySelector("ion-icon:nth-child(2)").classList.remove("hidden");
-    lastSelectedName = option.querySelector(".name").innerHTML;
+    const name = option.querySelector(".name").innerHTML;
+
+    if (optionType.classList.contains("participants")) {
+        lastSelectedParticipantName = name;
+        lastSelectedParticipant.innerHTML = lastSelectedParticipantName;
+        
+    } else {
+        lastSelectedVisibility.innerHTML = name === "Público" ? "público" : "reservadamente";
+        lastSelectedVisibilityName = name === "Público" ? "message" : "private_message";
+    }
 }
+
+lastSelectedParticipant.innerHTML = lastSelectedParticipantName;
+lastSelectedVisibility.innerHTML = "público";
