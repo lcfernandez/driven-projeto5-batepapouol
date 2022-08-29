@@ -37,11 +37,27 @@ function compareObjects(obj1, obj2) {
 function enterChat() {
     const promiseChat = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
     promiseChat.then(processResponse);
+}
 
-    setInterval(function () {
-        const promiseParticipants = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
-        promiseParticipants.then(processResponseParticipants);
-    }, 10000);
+function feedChat(array) {
+	for (let i = 0; i < array.length; i++) {
+        const type = array[i].type;
+
+        if (type === "status") {
+            messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(array[i].time)})</span> <span>${array[i].from}</span> ${array[i].text}</p></li>`;
+        } else {
+            if (type !== "private_message" || array[i].to === object.name) {
+                messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(array[i].time)})</span> <span>${array[i].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${array[i].to}</span>: ${array[i].text}</p></li>`;
+            }
+        }
+    }
+}
+
+function formatTime(time) {
+    const hour = Number(time.slice(0,2));
+    const newHour = hour - 3 + (hour < 4 ? 12 : 0);
+
+    return (newHour < 10 ? "0" : "") + newHour + time.slice(2);
 }
 
 function openMenu() {
@@ -62,30 +78,11 @@ function processErrorMessage() {
 
 function processResponse(response) {
     messages = response.data;
-    let type;
-
-	for (let i = 0; i < messages.length; i++) {
-        type = messages[i].type;
-
-        if (type === "status") {
-            messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(messages[i].time)})</span> <span>${messages[i].from}</span> ${messages[i].text}</p></li>`;
-        } else {
-            if (type !== "private_message" || messages[i].to === object.name) {
-                messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(messages[i].time)})</span> <span>${messages[i].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${messages[i].to}</span>: ${messages[i].text}</p></li>`;
-            }
-        }
-    }
+    feedChat(messages);
 
     setInterval(function () {
         updateChat();
     }, 3000);
-}
-
-function formatTime(time) {
-    const hour = Number(time.slice(0,2));
-    const newHour = hour - 3 + (hour < 4 ? 12 : 0);
-
-    return (newHour < 10 ? "0" : "") + newHour + time.slice(2);
 }
 
 function processResponseLogin() {
@@ -99,6 +96,11 @@ function processResponseLogin() {
     setInterval(function () {
         axios.post("https://mock-api.driven.com.br/api/v6/uol/status", object);
     }, 5000);
+
+    setInterval(function () {
+        const promiseParticipants = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+        promiseParticipants.then(processResponseParticipants);
+    }, 10000);
 }
 
 function processResponseMessage() {
@@ -137,22 +139,9 @@ function processResponseUpdate(response) {
     
     for (let i = 0; i < update.length; i++) {
         if (compareObjects(messages[99],update[i])) {
-            const newMessages = update.slice(i + 1);
-            let type;
-
-            for (let j = 0; j < newMessages.length; j++) {
-                type = newMessages[j].type;
-        
-                if (type === "status") {
-                    messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(newMessages[j].time)})</span> <span>${newMessages[j].from}</span> ${newMessages[j].text}</p></li>`;
-                } else {
-                    if (type !== "private_message" || newMessages[j].to === object.name) {
-                        messagesList.innerHTML += `<li class="${type}"><p><span>(${formatTime(newMessages[j].time)})</span> <span>${newMessages[j].from}</span> ${type === "private_message" ? "reservadamente " : ""}para <span>${newMessages[j].to}</span>: ${newMessages[j].text}</p></li>`;
-                    }
-                }
-            }
-
+            feedChat(update.slice(i + 1));
             messagesList.lastElementChild.scrollIntoView();
+
             messages = update;
             return;
         }
