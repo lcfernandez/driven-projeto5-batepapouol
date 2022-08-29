@@ -11,7 +11,8 @@ events */
 
 /* global variables */
 
-const button = document.querySelector("button");
+const enterChatButton = document.querySelector("button");
+const sendMessageButton = document.querySelector(".button > ion-icon");
 const textMessage = document.querySelector(".input-message");
 const lastSelectedParticipant = document.querySelector(".last-selected-participant");
 const lastSelectedVisibility = document.querySelector(".last-selected-visibility");
@@ -61,7 +62,7 @@ function feedChat(array) {
                     </p>
                 </li>`;
         } else {
-            if (type !== "private_message" || array[i].to === object.name) {
+            if (array[i].to === "Todos" || array[i].to === object.name) {
                 messagesList.innerHTML +=
                     `<li class="${type}">
                         <p>
@@ -103,7 +104,7 @@ function processErrorLogin(error) {
     }
 
     username.classList.remove("hidden");
-    button.classList.remove("hidden");
+    enterChatButton.classList.remove("hidden");
     loading.classList.add("hidden");
 }
 
@@ -136,6 +137,7 @@ function processResponseLogin() {
 
 function processResponseSendMessage() {
     textMessage.value = "";
+    sendMessageButton.setAttribute("onclick", "sendMessage()");
 }
 
 function processResponseParticipants(response) {
@@ -201,6 +203,8 @@ function select(option) {
 }
 
 function sendMessage() {
+    sendMessageButton.removeAttribute("onclick");
+
     const objectMessage = {
         from: object.name,
         to: lastSelectedParticipantName,
@@ -220,7 +224,7 @@ function updateChat() {
 
 function validateUsername() {
     username.classList.add("hidden");
-    button.classList.add("hidden");
+    enterChatButton.classList.add("hidden");
     loading.classList.remove("hidden");
 
     object = {name: username.value};
@@ -234,12 +238,12 @@ function validateUsername() {
 
 document.querySelector(".input-message").addEventListener("keypress", function(event) {
     if(event.key === 'Enter') {
-        document.querySelector(".button > ion-icon").click();
+        sendMessageButton.click();
     }
 });
 
 document.querySelector(".username").addEventListener("keypress", function(event) {
     if(event.key === 'Enter') {
-        document.querySelector(".login-screen > button").click();
+        enterChatButton.click();
     }
 });
